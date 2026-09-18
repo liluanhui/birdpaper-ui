@@ -141,6 +141,14 @@
           transition: all 0.2s;
         }
 
+        &:last-child {
+          border-bottom: none;
+
+          .#{$B}-column {
+            border-bottom: none;
+          }
+        }
+
         &:hover {
           background-color: var(--bp-gray-1);
           transition: all 0.2s;
