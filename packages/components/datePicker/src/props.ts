@@ -188,7 +188,7 @@ export const rangePickerProps = {
    * @default ["00:00:00", "23:59:59"]
    */
   defaultTime: {
-    type: Array as PropType<[string, string]>,
+    type: Array as unknown as PropType<[string, string]>,
     default: () => ["00:00:00", "23:59:59"],
   },
   /**
