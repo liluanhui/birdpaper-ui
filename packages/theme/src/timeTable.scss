@@ -42,7 +42,8 @@
 
   &-col-cell {
     display: flex;
-    padding-left: 22px;
+    align-items: center;
+    justify-content: center;
     height: 32px;
     line-height: 32px;
     background-color: var(--bp-gray-0);

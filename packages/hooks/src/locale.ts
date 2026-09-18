@@ -44,6 +44,7 @@ export interface LocaleMessages {
     today: string;
     now: string;
     ok: string;
+    clear: string;
     selectTime: string;
   };
   timePicker: {
@@ -95,6 +96,7 @@ export const zhCN: LocaleMessages = {
     today: "今天",
     now: "此刻",
     ok: "确定",
+    clear: "清空",
     selectTime: "选择时间",
   },
   timePicker: {
@@ -139,6 +141,7 @@ export const enUS: LocaleMessages = {
     today: "Today",
     now: "Now",
     ok: "OK",
+    clear: "Clear",
     selectTime: "Select time",
   },
   timePicker: {

@@ -173,6 +173,24 @@ export const rangePickerProps = {
     type: String,
     default: "YYYY-MM-DD",
   },
+  /**
+   * @type boolean
+   * @description Show time selectors or not.
+   * @default false
+   */
+  showTime: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * @type [string, string]
+   * @description Default start/end time when `showTime` is enabled.
+   * @default ["00:00:00", "23:59:59"]
+   */
+  defaultTime: {
+    type: Array as PropType<[string, string]>,
+    default: () => ["00:00:00", "23:59:59"],
+  },
 };
 
 export type DatePickerProps = ExtractPropTypes<typeof commonPickerProps & typeof datePickerProps>;

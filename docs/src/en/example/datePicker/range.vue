@@ -1,9 +1,21 @@
 <template>
-  <div style="display: flex; gap: 40px">
+  <div style="display: flex; gap: 40px; flex-wrap: wrap">
     <div>
       <div class="label">Date range</div>
       <bp-date-range-picker v-model="val" style="width: 320px" :placeholder="['Start date', 'End date']" />
-      <div class="value">Current: {{ val }}</div>
+      <div class="value">Value: {{ val }}</div>
+    </div>
+    <div>
+      <div class="label">Date-time range</div>
+      <bp-date-range-picker
+        v-model="valTime"
+        show-time
+        :default-time="['00:00:00', '23:59:59']"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        style="width: 400px"
+        :placeholder="['Start time', 'End time']"
+      />
+      <div class="value">Value: {{ valTime }}</div>
     </div>
   </div>
 </template>
@@ -12,6 +24,7 @@
 import { ref } from "vue";
 
 const val = ref<string[]>([]);
+const valTime = ref<string[]>([]);
 </script>
 
 <style scoped>

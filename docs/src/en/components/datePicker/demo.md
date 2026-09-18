@@ -8,7 +8,7 @@
 
 ## Date Range
 
-Use `date-range-picker` to select a range.
+Use `date-range-picker` to select a range. Enable `show-time` to pick times as well — a date/time summary and confirm footer appear below the calendars. Set `default-time` for the default start/end clock values (default `['00:00:00', '23:59:59']`).
 
 <demo-block src="datePicker/range">
 

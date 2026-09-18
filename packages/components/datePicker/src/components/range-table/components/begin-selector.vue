@@ -59,16 +59,24 @@ setDates(beginModel.value ? dayjs(beginModel.value) : undefined);
 
 const cellCls = (cell: DayCell) => {
   const rangeDate = endModel.value || hoverDate.value?.value;
+  const hasMultiDayRange = !!(beginModel.value && rangeDate && beginModel.value !== rangeDate);
   const isRange =
-    cell.type === "normal" && beginModel.value && rangeDate && isInRange(beginModel.value, rangeDate, cell.value);
-  const isRangeStart = beginModel.value === cell.value && rangeDate && cell.type === "normal";
-  const isRangeEnd = rangeDate === cell.value && rangeDate > beginModel.value && cell.type === "normal";
+    cell.type === "normal" &&
+    hasMultiDayRange &&
+    isInRange(beginModel.value, rangeDate!, cell.value);
+  const isRangeStart = beginModel.value === cell.value && hasMultiDayRange && cell.type === "normal";
+  const isRangeEnd = rangeDate === cell.value && hasMultiDayRange && rangeDate! > beginModel.value && cell.type === "normal";
   const isDisabled = props.disabledDate && props.disabledDate(cell.value);
+  // 仅选一天 / 起止同一天：用圆形 active，不用 range-start 半圆
+  const isSingleActive =
+    cell.type === "normal" &&
+    !hasMultiDayRange &&
+    (beginModel.value === cell.value || endModel.value === cell.value);
 
   return [
     `${props.clsBlockName}-body-cell`,
     `day-cell-${cell.type}`,
-    { active: beginModel.value === cell.value && cell.type === "normal" },
+    { active: isSingleActive },
     { "to-day": toDay.value === cell.value },
     { "range-start": isRangeStart },
     { "range-end": isRangeEnd },

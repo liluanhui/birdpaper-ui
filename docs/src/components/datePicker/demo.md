@@ -10,7 +10,7 @@
 
 ## 日期范围
 
-通过 `date-range-picker` 选择日期范围，绑定值为字符串数组。
+通过 `date-range-picker` 选择日期范围，绑定值为字符串数组。开启 `show-time` 后可同时选择时间，面板下方展示起止日期/时间，确认后写入；`default-time` 可指定默认起止时刻（默认 `['00:00:00', '23:59:59']`）。
 
 <demo-block src="datePicker/range">
 

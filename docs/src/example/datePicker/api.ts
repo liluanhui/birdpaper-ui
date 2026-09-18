@@ -83,4 +83,13 @@ export const rangePickerProps: PropItem[] = [
     remarkEn: "Locale", type: ["LangsType"], optional: ["en", "zh-cn"], default: "zh-cn" },
   { name: "value-format", remark: "值的格式",
     remarkEn: "Value format", type: ["String"], default: "YYYY-MM-DD" },
+  { name: "show-time", remark: "是否显示时间选择",
+    remarkEn: "Whether to show time selection", type: ["Boolean"], default: "false" },
+  {
+    name: "default-time",
+    remark: "show-time 时的默认起止时间",
+    remarkEn: "Default start/end time when show-time is enabled",
+    type: ["[string, string]"],
+    default: "['00:00:00', '23:59:59']",
+  },
 ];
