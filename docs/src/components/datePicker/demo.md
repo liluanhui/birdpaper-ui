@@ -58,6 +58,16 @@
 
 </demo-block>
 
+## 自定义触发器
+
+通过 `#trigger` 插槽自定义触发元素（如按钮），作用域参数提供 `value`（当前值）与 `visible`（面板是否打开）。`DatePicker`、`DateRangePicker`、`MonthPicker`、`YearPicker` 均支持。
+
+<demo-block src="datePicker/trigger">
+
+<<< @/example/datePicker/trigger.vue
+
+</demo-block>
+
 ## 可清空与禁用
 
 `clearable` 允许清空，`disabled` 禁用选择器，`disabled-date` 禁用指定日期。

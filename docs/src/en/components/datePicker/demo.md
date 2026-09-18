@@ -56,6 +56,16 @@ Hide the trigger with `hide-trigger`.
 
 </demo-block>
 
+## Custom Trigger
+
+Use the `#trigger` slot to replace the default input (e.g. with a button). Scoped props: `value` (current value) and `visible` (whether the panel is open). Supported by `DatePicker`, `DateRangePicker`, `MonthPicker`, and `YearPicker`.
+
+<demo-block src="datePicker/trigger">
+
+<<< @/en/example/datePicker/trigger.vue
+
+</demo-block>
+
 ## Clearable and Disabled
 
 Combine `clearable`, `disabled`, and `disabled-date`.

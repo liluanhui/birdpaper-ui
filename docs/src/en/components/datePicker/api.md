@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { commonPickerProps, datePickerProps, monthPickerProps, yearPickerProps, rangePickerProps } from "../../example/datePicker/api.ts"
+import { commonPickerProps, datePickerProps, monthPickerProps, yearPickerProps, rangePickerProps, pickerSlots } from "../../example/datePicker/api.ts"
 </script>
 
 ## Common Props
@@ -21,3 +21,9 @@ import { commonPickerProps, datePickerProps, monthPickerProps, yearPickerProps, 
 ## RangePicker Props
 
 <api-block type="prop" :data="rangePickerProps" />
+
+## Slots
+
+Shared by DatePicker / DateRangePicker / MonthPicker / YearPicker.
+
+<api-block type="slot" :data="pickerSlots" />

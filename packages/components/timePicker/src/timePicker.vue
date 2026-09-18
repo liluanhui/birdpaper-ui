@@ -9,7 +9,9 @@
     position="bottom-left"
     update-at-scroll
   >
+    <slot v-if="$slots.trigger" name="trigger" :value="model" :visible="showPopup" />
     <bp-input
+      v-else
       ref="inpRef"
       readonly
       v-model="model"

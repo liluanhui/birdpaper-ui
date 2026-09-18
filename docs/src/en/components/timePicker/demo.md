@@ -25,3 +25,13 @@ Combine `clearable` and `disabled` states.
 <<< @/en/example/timePicker/status.vue
 
 </demo-block>
+
+## Custom Trigger
+
+Use the `#trigger` slot to replace the default input. Scoped props: `value` and `visible`.
+
+<demo-block src="timePicker/trigger">
+
+<<< @/en/example/timePicker/trigger.vue
+
+</demo-block>

@@ -8,7 +8,8 @@
     position="bottom-left"
     update-at-scroll
   >
-    <div :class="cls">
+    <slot v-if="$slots.trigger" name="trigger" :value="model" :visible="showPopup" />
+    <div v-else :class="cls">
       <div :class="`${clsBlockName}-input`">
         <input
           v-model="inputBegin"

@@ -1,4 +1,4 @@
-import { PropItem } from "../../../.vitepress/components/api-block/src/types";
+import { PropItem, SlotItem } from "../../../.vitepress/components/api-block/src/types";
 
 export const commonPickerProps: PropItem[] = [
   { name: "v-model", remark: "Bound value", type: ["String"] },
@@ -81,5 +81,13 @@ export const rangePickerProps: PropItem[] = [
     type: ["RangeShortcutsPosition"],
     optional: ["left", "right"],
     default: "left",
+  },
+];
+
+export const pickerSlots: SlotItem[] = [
+  {
+    name: "trigger",
+    remark: "Custom trigger element; falls back to the default input when omitted",
+    params: "{ value, visible }",
   },
 ];
