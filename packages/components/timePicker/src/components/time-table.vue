@@ -138,20 +138,14 @@ const getTime = (defaultNow: boolean = false) => {
 
 watch(
   () => ctx.value?.modelValue,
-  () => {
-    if (!ctx.value?.modelValue) return;
-
-    globalValue.value = ["", "", ""];
-
-    const arr = ctx.value?.modelValue.split(":");
-    for (let i = 0; i < arr.length; i++) {
-      const element = arr[i];
-      globalValue.value[i] = Number(element).toString().padStart(2, "0");
+  (val) => {
+    if (!val) {
+      globalValue.value = ["", "", ""];
+      return;
     }
+    setTime(val);
   },
-  {
-    immediate: true,
-  }
+  { immediate: true }
 );
 
 defineExpose({
