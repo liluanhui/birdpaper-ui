@@ -1,4 +1,5 @@
 import { InjectionKey } from "vue";
+import type { Dayjs } from "dayjs";
 
 /** 语言类型 */
 export type LangsType = "en" | "zh-cn";
@@ -27,6 +28,23 @@ export interface YearCell {
 
 /** 日历面板类型 */
 export type PanelType = "date" | "month" | "year" | "range";
+
+/** 范围快捷选项的日期值（支持 dayjs / Date / 字符串） */
+export type RangeShortcutDate = Dayjs | Date | string;
+
+/** 范围快捷选项返回值或工厂函数 */
+export type RangeShortcutValue =
+  | [RangeShortcutDate, RangeShortcutDate]
+  | (() => [RangeShortcutDate, RangeShortcutDate]);
+
+/** 范围选择快捷选项 */
+export interface RangeShortcut {
+  label: string;
+  value: RangeShortcutValue;
+}
+
+/** 快捷选项面板位置 */
+export type RangeShortcutsPosition = "left" | "right";
 
 export interface DatePickerContext {
   type: PanelType;
@@ -61,6 +79,10 @@ export interface RangePickerContext {
   showTime?: boolean;
   /** 默认起止时间（showTime 时） */
   defaultTime?: [string, string];
+  /** 快捷选项，false 关闭；true / 未传使用内置默认；数组为自定义 */
+  rangeShortcuts?: RangeShortcut[] | boolean;
+  /** 快捷选项面板位置 */
+  shortcutsPosition?: RangeShortcutsPosition;
   /** 是否禁用日期 */
   disableDate?: (value: string) => boolean;
   /** 选择后触发 */

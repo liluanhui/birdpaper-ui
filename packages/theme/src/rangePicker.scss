@@ -132,6 +132,55 @@ div[class*="trigger-wrapper"] {
   border: $borderSize solid $date-picker-border-color;
   overflow: hidden;
 
+  &.has-shortcuts {
+    width: auto;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  &-main {
+    display: flex;
+    flex-direction: column;
+    width: 552px;
+    flex-shrink: 0;
+  }
+
+  &-shortcuts {
+    @include flex(column, flex-start, stretch);
+    width: 112px;
+    flex-shrink: 0;
+    padding: 8px 0;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border-right: $borderSize solid $date-picker-border-color;
+
+    &-item {
+      @include flex(row, flex-start, center);
+      min-height: 32px;
+      padding: 0 14px;
+      font-size: 13px;
+      color: rgba(getCssVar("ranger-table", "date-text-color"), 1);
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: color 0.15s ease, background-color 0.15s ease;
+
+      &:hover {
+        color: rgba(getCssVar("ranger-table", "date-text-color-hover"), 1);
+        background-color: rgba(getCssVar("ranger-table", "date-bg-color-hover"), 1);
+      }
+
+      &.is-active {
+        color: rgba(getCssVar("ranger-table", "date-text-color-hover"), 1);
+        font-weight: 500;
+      }
+    }
+  }
+
+  &.is-shortcuts-right &-shortcuts {
+    border-right: none;
+    border-left: $borderSize solid $date-picker-border-color;
+  }
+
   &-calendars {
     display: flex;
     width: 100%;

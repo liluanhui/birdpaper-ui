@@ -89,7 +89,7 @@ const effectiveFormat = computed(() => {
 });
 
 const showPopup = ref<boolean>(false);
-const { langs, disabledDate, showTime, defaultTime } = toRefs(props);
+const { langs, disabledDate, showTime, defaultTime, rangeShortcuts, shortcutsPosition } = toRefs(props);
 const pickerContext = reactive({
   type: "range" as const,
   model,
@@ -97,6 +97,8 @@ const pickerContext = reactive({
   valueFormat: effectiveFormat,
   showTime,
   defaultTime,
+  rangeShortcuts,
+  shortcutsPosition,
   disableDate: disabledDate,
   onSelect: (v: string[], _payload: any, closePopup = true) => {
     model.value = [v?.[0] || "", v?.[1] || ""];

@@ -46,6 +46,9 @@ export interface LocaleMessages {
     ok: string;
     clear: string;
     selectTime: string;
+    last7Days: string;
+    last30Days: string;
+    lastYear: string;
   };
   timePicker: {
     now: string;
@@ -98,6 +101,9 @@ export const zhCN: LocaleMessages = {
     ok: "确定",
     clear: "清空",
     selectTime: "选择时间",
+    last7Days: "近7天",
+    last30Days: "近30天",
+    lastYear: "近一年",
   },
   timePicker: {
     now: "现在",
@@ -143,6 +149,9 @@ export const enUS: LocaleMessages = {
     ok: "OK",
     clear: "Clear",
     selectTime: "Select time",
+    last7Days: "Last 7 days",
+    last30Days: "Last 30 days",
+    lastYear: "Last year",
   },
   timePicker: {
     now: "Now",

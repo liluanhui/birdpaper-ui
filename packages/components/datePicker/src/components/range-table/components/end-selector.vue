@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import tableHeader from "../../table-header.vue";
-import { ref, type PropType } from "vue";
+import { ref, type PropType, watch } from "vue";
 import { useDayJs } from "../../../core";
 import { DayCell, LangsType } from "../../../types";
 import dayjs from "dayjs";
@@ -66,6 +66,25 @@ if (isSameMonth) {
 }
 
 setDates(endModel.value ? (isSameMonth ? dayjs(endModel.value).add(1, "month") : dayjs(endModel.value)) : undefined);
+
+const syncEndPanel = () => {
+  const begin = beginModel.value;
+  const end = endModel.value;
+  if (end && dayjs(end).isValid()) {
+    const sameMonth =
+      !!begin &&
+      dayjs(begin).isValid() &&
+      dayjs(begin).year() === dayjs(end).year() &&
+      dayjs(begin).month() === dayjs(end).month();
+    setDates(sameMonth ? dayjs(end).add(1, "month") : dayjs(end));
+    return;
+  }
+  if (begin && dayjs(begin).isValid()) {
+    setDates(dayjs(begin).add(1, "month"));
+  }
+};
+
+watch([beginModel, endModel], () => syncEndPanel());
 
 const cellCls = (cell: DayCell) => {
   const rangeDate = endModel.value || hoverDate.value?.value;

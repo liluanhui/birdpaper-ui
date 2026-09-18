@@ -16,6 +16,16 @@ Use `date-range-picker` to select a range. Enable `show-time` to pick times as w
 
 </demo-block>
 
+## Shortcuts
+
+Shortcuts (Last 7 days / Last 30 days / Last year) appear on the left by default. Customize with `range-shortcuts`, hide with `false`, or move with `shortcuts-position`.
+
+<demo-block src="datePicker/shortcuts">
+
+<<< @/en/example/datePicker/shortcuts.vue
+
+</demo-block>
+
 ## With Time
 
 Enable `show-time` and format with `value-format`.

@@ -18,6 +18,16 @@
 
 </demo-block>
 
+## 快捷选项
+
+范围面板默认在左侧展示快捷选项（近7天 / 近30天 / 近一年）。可通过 `range-shortcuts` 自定义或设为 `false` 关闭，`shortcuts-position` 控制左右位置。
+
+<demo-block src="datePicker/shortcuts">
+
+<<< @/example/datePicker/shortcuts.vue
+
+</demo-block>
+
 ## 选择时间
 
 通过开启 `show-time` 属性以支持时间选择，`value-format` 自定义输出格式。

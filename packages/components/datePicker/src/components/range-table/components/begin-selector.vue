@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import tableHeader from "../../table-header.vue";
-import { ref, type PropType } from "vue";
+import { ref, type PropType, watch } from "vue";
 import { useDayJs } from "../../../core";
 import { DayCell, LangsType } from "../../../types";
 import dayjs from "dayjs";
@@ -56,6 +56,11 @@ const { toDay, setDates, dates, weeks, currentYear, currentMonth, months, change
 );
 
 setDates(beginModel.value ? dayjs(beginModel.value) : undefined);
+
+watch(beginModel, (val) => {
+  if (!val || !dayjs(val).isValid()) return;
+  setDates(dayjs(val));
+});
 
 const cellCls = (cell: DayCell) => {
   const rangeDate = endModel.value || hoverDate.value?.value;

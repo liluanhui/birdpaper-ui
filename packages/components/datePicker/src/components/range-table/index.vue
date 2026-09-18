@@ -1,95 +1,135 @@
 <template>
-  <div :class="[clsBlockName, 'select-none', { 'is-show-time': showTime }]">
-    <div :class="`${clsBlockName}-calendars`">
-      <!-- Begin panel: calendar or time -->
-      <div :class="`${clsBlockName}-area`">
-        <begin-selector
-          v-if="panelMode === 'date'"
-          ref="beginSelectorRef"
-          v-model:begin="beginDate"
-          v-model:end="endDate"
-          :clsBlockName
-          :option-slice="beginOptionSlice"
-          :langs="ctx!.langs"
-          :disabled-date="ctx?.disableDate"
-          @on-step="onStep"
-          @on-select="onCalendarSelect"
-        />
-        <div v-else :class="`${clsBlockName}-time-view`">
-          <div :class="`${clsBlockName}-time-view-header`">{{ messages.datePicker.selectTime }}</div>
-          <TimeTable ref="beginTimeRef" only-selector @select="onBeginTimeSelect" />
-        </div>
-      </div>
-
-      <!-- End panel: calendar or time -->
-      <div :class="`${clsBlockName}-area`">
-        <end-selector
-          v-if="panelMode === 'date'"
-          ref="endSelectorRef"
-          v-model:begin="beginDate"
-          v-model:end="endDate"
-          :clsBlockName
-          :option-slice="endOptionSlice"
-          :langs="ctx!.langs"
-          :disabled-date="ctx?.disableDate"
-          @on-step="onStep"
-          @on-hover="onEndHover"
-          @on-select="onCalendarSelect"
-        />
-        <div v-else :class="`${clsBlockName}-time-view`">
-          <div :class="`${clsBlockName}-time-view-header`">{{ messages.datePicker.selectTime }}</div>
-          <TimeTable ref="endTimeRef" only-selector @select="onEndTimeSelect" />
-        </div>
+  <div
+    :class="[
+      clsBlockName,
+      'select-none',
+      {
+        'is-show-time': showTime,
+        'has-shortcuts': showShortcutsPanel,
+        'is-shortcuts-right': showShortcutsPanel && shortcutsPosition === 'right',
+      },
+    ]"
+  >
+    <div
+      v-if="showShortcutsPanel && shortcutsPosition === 'left'"
+      :class="`${clsBlockName}-shortcuts`"
+    >
+      <div
+        v-for="(item, index) in shortcutList"
+        :key="`${item.label}-${index}`"
+        :class="[`${clsBlockName}-shortcuts-item`, { 'is-active': isShortcutActive(item) }]"
+        @click="onShortcutClick(item)"
+      >
+        {{ item.label }}
       </div>
     </div>
 
-    <template v-if="showTime">
-      <div :class="`${clsBlockName}-datetime`">
-        <div
-          :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'date' }]"
-          @click="switchPanelMode('date')"
-        >
-          <IconCalendarLine size="16" />
-          <span>{{ displayBeginDate }}</span>
+    <div :class="`${clsBlockName}-main`">
+      <div :class="`${clsBlockName}-calendars`">
+        <!-- Begin panel: calendar or time -->
+        <div :class="`${clsBlockName}-area`">
+          <begin-selector
+            v-if="panelMode === 'date'"
+            ref="beginSelectorRef"
+            v-model:begin="beginDate"
+            v-model:end="endDate"
+            :clsBlockName
+            :option-slice="beginOptionSlice"
+            :langs="ctx!.langs"
+            :disabled-date="ctx?.disableDate"
+            @on-step="onStep"
+            @on-select="onCalendarSelect"
+          />
+          <div v-else :class="`${clsBlockName}-time-view`">
+            <div :class="`${clsBlockName}-time-view-header`">{{ messages.datePicker.selectTime }}</div>
+            <TimeTable ref="beginTimeRef" only-selector @select="onBeginTimeSelect" />
+          </div>
         </div>
-        <div
-          :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'time' }]"
-          @click="switchPanelMode('time')"
-        >
-          <IconTimeLine size="16" />
-          <span>{{ beginTime }}</span>
-        </div>
-        <div
-          :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'date' }]"
-          @click="switchPanelMode('date')"
-        >
-          <IconCalendarLine size="16" />
-          <span>{{ displayEndDate }}</span>
-        </div>
-        <div
-          :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'time' }]"
-          @click="switchPanelMode('time')"
-        >
-          <IconTimeLine size="16" />
-          <span>{{ endTime }}</span>
+
+        <!-- End panel: calendar or time -->
+        <div :class="`${clsBlockName}-area`">
+          <end-selector
+            v-if="panelMode === 'date'"
+            ref="endSelectorRef"
+            v-model:begin="beginDate"
+            v-model:end="endDate"
+            :clsBlockName
+            :option-slice="endOptionSlice"
+            :langs="ctx!.langs"
+            :disabled-date="ctx?.disableDate"
+            @on-step="onStep"
+            @on-hover="onEndHover"
+            @on-select="onCalendarSelect"
+          />
+          <div v-else :class="`${clsBlockName}-time-view`">
+            <div :class="`${clsBlockName}-time-view-header`">{{ messages.datePicker.selectTime }}</div>
+            <TimeTable ref="endTimeRef" only-selector @select="onEndTimeSelect" />
+          </div>
         </div>
       </div>
 
-      <div :class="`${clsBlockName}-footer`">
-        <bp-button
-          v-if="canConfirm"
-          size="small"
-          status="gray"
-          type="secondary"
-          @click="onClear"
-        >
-          {{ messages.datePicker.clear }}
-        </bp-button>
-        <bp-button size="small" status="primary" type="normal" :disabled="!canConfirm" @click="onConfirm">
-          {{ messages.datePicker.ok }}
-        </bp-button>
+      <template v-if="showTime">
+        <div :class="`${clsBlockName}-datetime`">
+          <div
+            :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'date' }]"
+            @click="switchPanelMode('date')"
+          >
+            <IconCalendarLine size="16" />
+            <span>{{ displayBeginDate }}</span>
+          </div>
+          <div
+            :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'time' }]"
+            @click="switchPanelMode('time')"
+          >
+            <IconTimeLine size="16" />
+            <span>{{ beginTime }}</span>
+          </div>
+          <div
+            :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'date' }]"
+            @click="switchPanelMode('date')"
+          >
+            <IconCalendarLine size="16" />
+            <span>{{ displayEndDate }}</span>
+          </div>
+          <div
+            :class="[`${clsBlockName}-datetime-cell`, { 'is-active': panelMode === 'time' }]"
+            @click="switchPanelMode('time')"
+          >
+            <IconTimeLine size="16" />
+            <span>{{ endTime }}</span>
+          </div>
+        </div>
+
+        <div :class="`${clsBlockName}-footer`">
+          <bp-button
+            v-if="canConfirm"
+            size="small"
+            status="gray"
+            type="secondary"
+            @click="onClear"
+          >
+            {{ messages.datePicker.clear }}
+          </bp-button>
+          <bp-button size="small" status="primary" type="normal" :disabled="!canConfirm" @click="onConfirm">
+            {{ messages.datePicker.ok }}
+          </bp-button>
+        </div>
+      </template>
+    </div>
+
+    <div
+      v-if="showShortcutsPanel && shortcutsPosition === 'right'"
+      :class="`${clsBlockName}-shortcuts`"
+    >
+      <div
+        v-for="(item, index) in shortcutList"
+        :key="`${item.label}-${index}`"
+        :class="[`${clsBlockName}-shortcuts-item`, { 'is-active': isShortcutActive(item) }]"
+        @click="onShortcutClick(item)"
+      >
+        {{ item.label }}
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -98,11 +138,17 @@ import { useNamespace, useLocale } from "@birdpaper-ui/hooks";
 import { ref, inject, computed, watch, nextTick } from "vue";
 import beginSelector from "./components/begin-selector.vue";
 import endSelector from "./components/end-selector.vue";
-import { DayCell, RangePickerContext, rangeInjectionKey } from "../../types";
+import {
+  DayCell,
+  RangePickerContext,
+  RangeShortcut,
+  RangeShortcutDate,
+  rangeInjectionKey,
+} from "../../types";
 import { TimeTable } from "@birdpaper-ui/components/timePicker/index";
 import BpButton from "@birdpaper-ui/components/button/index";
 import { IconCalendarLine, IconTimeLine } from "birdpaper-icon";
-import dayjs from "dayjs";
+import dayjs, { type Dayjs } from "dayjs";
 
 defineOptions({ name: "RangeTable" });
 const { clsBlockName } = useNamespace("range-table");
@@ -114,6 +160,45 @@ ctx.value = inject(rangeInjectionKey, undefined);
 const showTime = computed(() => !!ctx.value?.showTime);
 const defaultTimes = computed<[string, string]>(() => ctx.value?.defaultTime ?? ["00:00:00", "23:59:59"]);
 const todayStr = computed(() => dayjs().format("YYYY-MM-DD"));
+const shortcutsPosition = computed(() => ctx.value?.shortcutsPosition ?? "left");
+
+const toDayjs = (value: RangeShortcutDate): Dayjs | null => {
+  const parsed = dayjs(value);
+  return parsed.isValid() ? parsed : null;
+};
+
+const resolveShortcutRange = (item: RangeShortcut): [Dayjs, Dayjs] | null => {
+  const raw = typeof item.value === "function" ? item.value() : item.value;
+  if (!Array.isArray(raw) || raw.length < 2) return null;
+  const start = toDayjs(raw[0]);
+  const end = toDayjs(raw[1]);
+  if (!start || !end) return null;
+  return start.isAfter(end) ? [end, start] : [start, end];
+};
+
+const defaultShortcutList = computed<RangeShortcut[]>(() => [
+  {
+    label: messages.value.datePicker.last7Days,
+    value: () => [dayjs().subtract(6, "day"), dayjs()],
+  },
+  {
+    label: messages.value.datePicker.last30Days,
+    value: () => [dayjs().subtract(29, "day"), dayjs()],
+  },
+  {
+    label: messages.value.datePicker.lastYear,
+    value: () => [dayjs().subtract(1, "year"), dayjs()],
+  },
+]);
+
+const shortcutList = computed<RangeShortcut[]>(() => {
+  const shortcuts = ctx.value?.rangeShortcuts;
+  if (shortcuts === false) return [];
+  if (Array.isArray(shortcuts)) return shortcuts;
+  return defaultShortcutList.value;
+});
+
+const showShortcutsPanel = computed(() => shortcutList.value.length > 0);
 
 const beginDate = ref("");
 const endDate = ref("");
@@ -269,5 +354,45 @@ const onConfirm = () => {
 
   ctx.value.onSelect([formatValue(begin, bTime), formatValue(end, eTime)], {}, true);
   panelMode.value = "date";
+};
+
+const isShortcutActive = (item: RangeShortcut) => {
+  if (!beginDate.value || !endDate.value) return false;
+  const range = resolveShortcutRange(item);
+  if (!range) return false;
+  return (
+    range[0].format("YYYY-MM-DD") === beginDate.value &&
+    range[1].format("YYYY-MM-DD") === endDate.value
+  );
+};
+
+const onShortcutClick = (item: RangeShortcut) => {
+  if (!ctx.value) return;
+  const range = resolveShortcutRange(item);
+  if (!range) return;
+
+  const [start, end] = range;
+  beginDate.value = start.format("YYYY-MM-DD");
+  endDate.value = end.format("YYYY-MM-DD");
+  beginTime.value = defaultTimes.value[0];
+  endTime.value = defaultTimes.value[1];
+  panelMode.value = "date";
+
+  nextTick(() => onStep());
+
+  if (showTime.value) {
+    ctx.value.onSelect(
+      [formatValue(beginDate.value, beginTime.value), formatValue(endDate.value, endTime.value)],
+      {},
+      false
+    );
+    return;
+  }
+
+  ctx.value.onSelect(
+    [formatValue(beginDate.value, beginTime.value), formatValue(endDate.value, endTime.value)],
+    {},
+    true
+  );
 };
 </script>

@@ -92,4 +92,19 @@ export const rangePickerProps: PropItem[] = [
     type: ["[string, string]"],
     default: "['00:00:00', '23:59:59']",
   },
+  {
+    name: "range-shortcuts",
+    remark: "快捷选项。true 使用内置预设，false 关闭，传入数组可自定义",
+    remarkEn: "Range shortcuts. true for built-in presets, false to hide, or pass an array to customize",
+    type: ["RangeShortcut[]", "boolean"],
+    default: "true",
+  },
+  {
+    name: "shortcuts-position",
+    remark: "快捷选项面板位置",
+    remarkEn: "Side of the shortcuts panel",
+    type: ["RangeShortcutsPosition"],
+    optional: ["left", "right"],
+    default: "left",
+  },
 ];

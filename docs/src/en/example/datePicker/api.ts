@@ -69,4 +69,17 @@ export const rangePickerProps: PropItem[] = [
     type: ["[string, string]"],
     default: "['00:00:00', '23:59:59']",
   },
+  {
+    name: "range-shortcuts",
+    remark: "Range shortcuts. true for built-in presets, false to hide, or pass an array to customize",
+    type: ["RangeShortcut[]", "boolean"],
+    default: "true",
+  },
+  {
+    name: "shortcuts-position",
+    remark: "Side of the shortcuts panel",
+    type: ["RangeShortcutsPosition"],
+    optional: ["left", "right"],
+    default: "left",
+  },
 ];
