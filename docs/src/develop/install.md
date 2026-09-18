@@ -57,8 +57,9 @@ app.use(BirdpaperUI, {
   namespace: "bp",     // CSS 命名空间，默认 "bp"
   locale: "zh-CN",     // 语言，默认 "zh-CN"
   size: "default",     // 全局尺寸，默认 "default"
-  zIndex: 2000,        // 弹出层基准层级，默认 2000
-  emptyText: "暂无数据" // 空状态文案
+  zIndex: 3000,        // 弹出层基准层级，默认 3000
+  emptyText: "暂无数据", // 空状态文案
+  // fontFamily: "..." // 可选，覆盖组件字体
 });
 ```
 

@@ -58,7 +58,8 @@ app.use(BirdpaperUI, {
   locale: "zh-CN",     // Locale, default "zh-CN"
   size: "default",     // Global size, default "default"
   zIndex: 3000,        // Overlay base z-index, default 3000
-  emptyText: "No data" // Empty-state copy
+  emptyText: "No data", // Empty-state copy
+  // fontFamily: "..." // Optional override for component font
 });
 ```
 

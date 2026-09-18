@@ -63,7 +63,7 @@ const sizeTokenData = [
 const configRelationData = [
   { capability: '品牌色 / 中性色 / 圆角高度等视觉令牌', method: '覆盖 CSS 变量（本文）' },
   { capability: '深色模式', method: '根节点 .dark 类' },
-  { capability: '默认组件尺寸、语言、注册前缀、zIndex、空状态文案', method: 'app.use / ConfigProvider' },
+  { capability: '默认组件尺寸、语言、注册前缀、zIndex、空状态文案、字体', method: 'app.use / ConfigProvider' },
 ]
 </script>
 

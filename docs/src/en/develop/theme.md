@@ -63,7 +63,7 @@ const sizeTokenData = [
 const configRelationData = [
   { capability: 'Brand / neutral colors, radius, height, and other visual tokens', method: 'Override CSS variables (this guide)' },
   { capability: 'Dark mode', method: 'Root .dark class' },
-  { capability: 'Default size, locale, register prefix, zIndex, empty-state copy', method: 'app.use / ConfigProvider' },
+  { capability: 'Default size, locale, register prefix, zIndex, empty-state copy, font family', method: 'app.use / ConfigProvider' },
 ]
 </script>
 

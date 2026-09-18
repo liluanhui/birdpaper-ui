@@ -9,12 +9,28 @@
 ### 字体族
 
 ```css
-font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
-  Hiragino Sans GB, Noto Sans, Microsoft YaHei,
-  Helvetica Neue, Helvetica, Arial, sans-serif;
+font-family: var(--bp-font-family);
+/* 默认值： */
+/* Inter, -apple-system, BlinkMacSystemFont, "PingFang SC",
+   "Hiragino Sans GB", "Noto Sans", "Microsoft YaHei",
+   "Helvetica Neue", Helvetica, Arial, sans-serif; */
 ```
 
-优先使用系统字体栈（System Font Stack），保证各平台最佳的渲染效果和加载性能。西文优先使用 Inter，中文回退到各平台原生字体（PingFang SC / Noto Sans / Microsoft YaHei）。
+优先使用系统字体栈（System Font Stack），保证各平台最佳的渲染效果和加载性能。西文优先使用 Inter，中文回退到各平台原生字体（PingFang SC / Noto Sans / Microsoft YaHei）。组件根节点统一使用 `--bp-font-family`，避免继承业务页或文档站字体。
+
+可通过覆盖 CSS 变量或 [ConfigProvider](/components/config/) 的 `fontFamily` 自定义：
+
+```css
+:root {
+  --bp-font-family: "Helvetica Neue", Arial, sans-serif;
+}
+```
+
+```ts
+app.use(BirdpaperUI, {
+  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+});
+```
 
 ### 字号
 

@@ -1,5 +1,6 @@
 @use "../common/design" as *;
 @use "../common/animation.scss" as *;
+@use "../common/font";
 
 $B: null;
 @mixin b($block) {

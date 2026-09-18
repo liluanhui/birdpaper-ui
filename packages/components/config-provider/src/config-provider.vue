@@ -19,6 +19,7 @@ const props = withDefaults(
     size?: ConfigProviderContext["size"];
     zIndex?: number;
     emptyText?: string;
+    fontFamily?: string;
   }>(),
   {}
 );
@@ -32,6 +33,7 @@ const config = computed<ConfigProviderContext>(() => {
   if (props.size !== undefined) next.size = props.size;
   if (props.zIndex !== undefined) next.zIndex = props.zIndex;
   if (props.emptyText !== undefined) next.emptyText = props.emptyText;
+  if (props.fontFamily !== undefined) next.fontFamily = props.fontFamily;
   return next;
 });
 
