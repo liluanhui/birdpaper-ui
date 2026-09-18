@@ -1,5 +1,5 @@
 import { Component, ExtractPropTypes, PropType } from "vue";
-import { ColumnsItem, TableRowSelection, TableScroll } from "./types";
+import { ColumnsItem, TableRowSelection, TableScroll, TableSize } from "./types";
 import type { NormalizedColumn } from "./core";
 
 export const tableProps = {
@@ -11,6 +11,15 @@ export const tableProps = {
   data: {
     type: Array,
     default: () => [],
+  },
+  /**
+   * @type TableSize
+   * @description Table density size.
+   * @default "normal"
+   */
+  size: {
+    type: String as PropType<TableSize>,
+    default: "normal",
   },
   /**
    * @type string

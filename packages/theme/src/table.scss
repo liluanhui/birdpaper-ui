@@ -6,6 +6,37 @@
   width: 100%;
   box-sizing: border-box;
 
+  // Density tokens (normal = current defaults)
+  --bp-table-cell-padding-y: 10px;
+  --bp-table-cell-padding-x: 12px;
+  --bp-table-font-size: 14px;
+  --bp-table-empty-padding-y: 20px;
+  --bp-table-empty-font-size: 13px;
+
+  &-mini {
+    --bp-table-cell-padding-y: 6px;
+    --bp-table-cell-padding-x: 8px;
+    --bp-table-font-size: 12px;
+    --bp-table-empty-padding-y: 12px;
+    --bp-table-empty-font-size: 12px;
+  }
+
+  &-normal {
+    --bp-table-cell-padding-y: 10px;
+    --bp-table-cell-padding-x: 12px;
+    --bp-table-font-size: 14px;
+    --bp-table-empty-padding-y: 20px;
+    --bp-table-empty-font-size: 13px;
+  }
+
+  &-large {
+    --bp-table-cell-padding-y: 14px;
+    --bp-table-cell-padding-x: 16px;
+    --bp-table-font-size: 15px;
+    --bp-table-empty-padding-y: 28px;
+    --bp-table-empty-font-size: 14px;
+  }
+
   table {
     margin: 0;
     padding: 0;
@@ -103,11 +134,11 @@
 
         th {
           display: table-cell;
-          padding: 10px 12px;
+          padding: var(--bp-table-cell-padding-y) var(--bp-table-cell-padding-x);
           margin: 0;
           border: none;
           color: var(--bp-gray-8);
-          font-size: 14px;
+          font-size: var(--bp-table-font-size);
           font-weight: 500;
           text-align: left;
           vertical-align: inherit;
@@ -157,7 +188,7 @@
         }
 
         td {
-          padding: 10px 12px;
+          padding: var(--bp-table-cell-padding-y) var(--bp-table-cell-padding-x);
         }
       }
 
@@ -166,8 +197,8 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        padding: 20px 0;
-        font-size: 13px;
+        padding: var(--bp-table-empty-padding-y) 0;
+        font-size: var(--bp-table-empty-font-size);
         color: var(--bp-gray-6);
 
         svg[class*="-icon-"] {
@@ -179,8 +210,8 @@
       .#{$B}-column {
         display: table-cell;
         color: var(--bp-gray-10);
-        font-size: 14px;
-        padding: 10px 12px;
+        font-size: var(--bp-table-font-size);
+        padding: var(--bp-table-cell-padding-y) var(--bp-table-cell-padding-x);
         border-bottom: $borderSize solid var(--bp-gray-2);
         background-color: var(--bp-table-row-bg);
       }
