@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from "vue";
-import { ColorPickerValueType } from "./types";
+import { ColorPickerShape, ColorPickerValueType } from "./types";
 import { InputSize } from "@birdpaper-ui/components/input/src/types";
 
 export const colorPickerProps = {
@@ -29,6 +29,24 @@ export const colorPickerProps = {
   size: {
     type: String as PropType<InputSize>,
     default: "default",
+  },
+  /**
+   * @type ColorPickerShape
+   * @description Trigger shape: rounded square or circle.
+   * @default square
+   */
+  shape: {
+    type: String as PropType<ColorPickerShape>,
+    default: "square",
+  },
+  /**
+   * @type boolean
+   * @description Show selected color value beside the trigger.
+   * @default false
+   */
+  showValue: {
+    type: Boolean,
+    default: false,
   },
   /**
    * @type boolean

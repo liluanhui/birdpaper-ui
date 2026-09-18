@@ -17,5 +17,18 @@ export const colorPickerProps: PropItem[] = [
     optional: ["mini", "small", "default", "large"],
     default: "default",
   },
+  {
+    name: "shape",
+    remark: "Trigger shape",
+    type: ["ColorPickerShape"],
+    optional: ["square", "circle"],
+    default: "square",
+  },
+  {
+    name: "show-value",
+    remark: "Whether to show the color value beside the trigger",
+    type: ["Boolean"],
+    default: false,
+  },
   { name: "disabled", remark: "Whether disabled", type: ["Boolean"], default: false },
 ];

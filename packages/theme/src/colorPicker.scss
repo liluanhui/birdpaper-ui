@@ -180,9 +180,13 @@
     border: $borderSize solid $borderColor-3;
     background-color: var(--bp-gray-1);
     cursor: pointer;
+    box-sizing: border-box;
+    gap: 8px;
   }
 
   &-box {
+    @include flex(row, center, center);
+    flex-shrink: 0;
     background-image: conic-gradient(
       rgba(0, 0, 0, 0.06) 0 25%,
       transparent 0 50%,
@@ -190,6 +194,41 @@
       transparent 0
     );
     background-size: 6px 6px;
+  }
+
+  &-inner {
+    flex-shrink: 0;
+  }
+
+  &-value {
+    flex: 0 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    color: var(--bp-gray-10);
+    letter-spacing: 0.2px;
+  }
+
+  &-show-value {
+    width: max-content;
+    height: auto;
+    justify-content: flex-start;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  &-circle {
+    border-radius: 50%;
+
+    .#{$B}-input-box,
+    .#{$B}-input-inner {
+      border-radius: 50%;
+    }
+
+    &.#{$B}-input-show-value {
+      border-radius: getCssVar("size-border-radius", "default");
+    }
   }
 }
 
@@ -206,9 +245,23 @@ div[class*="trigger-wrapper"] {
 
 @each $size in $sizes {
   .#{$B}-input-#{$size} {
-    width: getCssVar("size-height", $size);
     height: getCssVar("size-height", $size);
     border-radius: getCssVar("size-border-radius", $size);
+    font-size: getCssVar("size-font-size", $size);
+
+    &:not(.#{$B}-input-show-value) {
+      width: getCssVar("size-height", $size);
+    }
+
+    &.#{$B}-input-show-value {
+      height: auto;
+      padding: 4px;
+      border-radius: getCssVar("size-border-radius", $size);
+    }
+
+    &.#{$B}-input-circle:not(.#{$B}-input-show-value) {
+      border-radius: 50%;
+    }
 
     .#{$B}-input-box {
       border-radius: calc(getCssVar("size-border-radius", $size) / 2);
@@ -218,6 +271,20 @@ div[class*="trigger-wrapper"] {
       width: calc(getCssVar("size-height", $size) - 10px);
       height: calc(getCssVar("size-height", $size) - 10px);
       border-radius: calc(getCssVar("size-border-radius", $size) / 2);
+    }
+
+    &.#{$B}-input-circle {
+      .#{$B}-input-box,
+      .#{$B}-input-inner {
+        border-radius: 50%;
+      }
+    }
+
+    &.#{$B}-input-show-value.#{$B}-input-circle {
+      .#{$B}-input-box,
+      .#{$B}-input-inner {
+        border-radius: 50%;
+      }
     }
   }
 }
