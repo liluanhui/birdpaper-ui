@@ -211,6 +211,24 @@ div[class*="trigger-wrapper"] {
       }
     }
 
+    .to-day {
+      .#{$namespace}-range-table-body-inner {
+        &::after {
+          content: "";
+          display: block;
+          position: relative;
+          left: 50%;
+          // 范围日期圆为 24px（单日为 32px），用 bottom: 0 对齐单日 bottom: 4px 时的字-点间距
+          bottom: 0;
+          width: 4px;
+          height: 4px;
+          margin-left: -2px;
+          border-radius: 4px;
+          background-color: rgba(getCssVar("ranger-table", "date-bg-color-active"), 1);
+        }
+      }
+    }
+
     .range {
       color: rgba(getCssVar("ranger-table", "date-text-color-range"), 1);
       background-color: rgba(getCssVar("ranger-table", "date-bg-color-range"), 1);

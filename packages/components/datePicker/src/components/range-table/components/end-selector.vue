@@ -51,7 +51,7 @@ const emits = defineEmits<{
 
 const isInRange = (start: string, end: string, value: string) => start <= value && value <= end;
 
-const { current, setDates, dates, weeks, currentYear, currentMonth, months, changeMonth, changeYear } = useDayJs(
+const { toDay, current, setDates, dates, weeks, currentYear, currentMonth, months, changeMonth, changeYear } = useDayJs(
   props.langs,
   endModel.value
 );
@@ -79,6 +79,7 @@ const cellCls = (cell: DayCell) => {
     `${props.clsBlockName}-body-cell`,
     `day-cell-${cell.type}`,
     { active: beginModel.value === cell.value && cell.type === "normal" },
+    { "to-day": toDay.value === cell.value },
     { "range-start": isRangeStart },
     { "range-end": isRangeEnd },
     { range: isRange && !isRangeStart && !isRangeEnd },
