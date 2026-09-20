@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { timePickerProps, timePickerEvents } from "../../example/timePicker/api.ts"
+import { timePickerProps, timePickerEvents, timePickerSlots } from "../../example/timePicker/api.ts"
 </script>
 
 ## TimePicker 属性
@@ -9,3 +9,7 @@ import { timePickerProps, timePickerEvents } from "../../example/timePicker/api.
 ## TimePicker 事件
 
 <api-block type="event" :data="timePickerEvents" />
+
+## TimePicker 插槽
+
+<api-block type="slot" :data="timePickerSlots" />

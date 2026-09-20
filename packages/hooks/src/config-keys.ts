@@ -8,3 +8,4 @@ export const sizeKey: InjectionKey<Ref<string>> = Symbol("sizeKey");
 export const zIndexKey: InjectionKey<Ref<number>> = Symbol("zIndexKey");
 export const emptyTextKey: InjectionKey<Ref<string>> = Symbol("emptyTextKey");
 export const popupZIndexKey: InjectionKey<Ref<number>> = Symbol("popupZIndexKey");
+export const fontFamilyKey: InjectionKey<Ref<string | undefined>> = Symbol("fontFamilyKey");

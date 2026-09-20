@@ -26,6 +26,26 @@
 
 </demo-block>
 
+## Shape
+
+`shape` controls the trigger: `square` (rounded rectangle, default) or `circle`.
+
+<demo-block src="colorPicker/shape">
+
+<<< @/en/example/colorPicker/shape.vue
+
+</demo-block>
+
+## Show Value
+
+Enable `show-value` to display the current color value beside the trigger.
+
+<demo-block src="colorPicker/showValue">
+
+<<< @/en/example/colorPicker/showValue.vue
+
+</demo-block>
+
 ## Disabled
 
 Disable the picker with `disabled`.

@@ -40,17 +40,27 @@ $switchSizes: "small", "mini";
     bottom: 0;
     display: flex;
     align-items: center;
-    background-color: rgba(getCssVar("switch", "bg"), 1);
-    border: $borderSize solid rgba(getCssVar("switch", "border"), 1);
+    background-color: var(--bp-gray-2);
+    border: $borderSize solid var(--bp-gray-2);
     border-radius: 20px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    &.#{$B}-check {
+      background-color: var(--bp-primary-6);
+      border-color: var(--bp-primary-6);
+    }
 
     &-inner {
       display: flex;
       align-items: center;
       font-size: 12px;
-      color: rgba(getCssVar("switch", "inner-color"), 1);
+      color: var(--bp-gray-6);
+      transition: padding 0.2s ease, color 0.2s ease;
+    }
+
+    &.#{$B}-check &-inner {
+      color: var(--bp-gray-0);
     }
 
     &-dot {
@@ -58,9 +68,9 @@ $switchSizes: "small", "mini";
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(getCssVar("switch", "dot-bg"), 1);
+      background-color: var(--bp-gray-0);
       border-radius: 20px;
-      transition: all 0.2s ease;
+      transition: left 0.2s ease, background-color 0.2s ease;
 
       .bp-icon-loading {
         fill: rgba(getCssVar("switch", "icon"), 1);
@@ -91,11 +101,30 @@ $switchSizes: "small", "mini";
   @include css-var-from-global-rgb(("switch", "inner-color"), ("gray", "8"));
   @include css-var-from-global-rgb(("switch", "dot-bg"), ("gray", "2"));
 
-  .#{$B}-check {
-    @include css-var-from-global-rgb(("switch", "border"), ("primary", "2"));
-    @include css-var-from-global-rgb(("switch", "bg"), ("primary", "2"));
-    @include css-var-from-global-rgb(("switch", "dot-bg"), ("gray", "0"));
-    @include css-var-from-global-rgb(("switch", "icon-color"), ("gray", "7"));
+  .#{$B}-slider {
+    background-color: var(--bp-gray-1);
+    border-color: var(--bp-gray-1);
+
+    .#{$B}-slider-inner {
+      color: var(--bp-gray-8);
+    }
+
+    .#{$B}-slider-dot {
+      background-color: var(--bp-gray-2);
+    }
+
+    &.#{$B}-check {
+      background-color: var(--bp-primary-2);
+      border-color: var(--bp-primary-2);
+
+      .#{$B}-slider-inner {
+        color: var(--bp-gray-0);
+      }
+
+      .#{$B}-slider-dot {
+        background-color: var(--bp-gray-0);
+      }
+    }
   }
 }
 

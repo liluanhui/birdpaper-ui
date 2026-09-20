@@ -27,3 +27,13 @@
 <<< @/example/timePicker/status.vue
 
 </demo-block>
+
+## 自定义触发器
+
+通过 `#trigger` 插槽自定义触发元素，作用域参数提供 `value` 与 `visible`。
+
+<demo-block src="timePicker/trigger">
+
+<<< @/example/timePicker/trigger.vue
+
+</demo-block>

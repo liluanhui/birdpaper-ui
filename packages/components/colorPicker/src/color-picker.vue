@@ -13,6 +13,7 @@
       <div :class="`${clsBlockName}-input-box`">
         <div :class="`${clsBlockName}-input-inner`" :style="_previewStyle"></div>
       </div>
+      <span v-if="showValue" :class="`${clsBlockName}-input-value`">{{ model }}</span>
     </div>
     <template #content>
       <div :class="clsBlockName">
@@ -88,6 +89,8 @@ const cls = computed(() => {
   return {
     [`${clsBlockName.value}-input`]: true,
     [`${clsBlockName.value}-input-${props.size}`]: true,
+    [`${clsBlockName.value}-input-${props.shape}`]: true,
+    [`${clsBlockName.value}-input-show-value`]: props.showValue,
     [`${clsBlockName.value}-input-disabled`]: props.disabled,
   };
 });

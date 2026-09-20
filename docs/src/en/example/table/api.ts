@@ -4,6 +4,13 @@ export const tableProps: PropItem[] = [
   { name: "v-model:selected-key", remark: "Selected key (radio)", type: ["String", "Number"] },
   { name: "v-model:selected-keys", remark: "Selected keys (checkbox)", type: ["Array"] },
   { name: "data", remark: "Data source", type: ["Array"], default: "[]" },
+  {
+    name: "size",
+    remark: "Table size",
+    type: ["TableSize"],
+    optional: ["mini", "normal", "large"],
+    default: "normal",
+  },
   { name: "height", remark: "Fixed height", type: ["String"] },
   { name: "border", remark: "Whether bordered", type: ["Boolean"], default: false },
   { name: "stripe", remark: "Whether striped", type: ["Boolean"], default: false },

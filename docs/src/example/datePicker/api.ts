@@ -1,4 +1,4 @@
-import { PropItem } from "../../.vitepress/components/api-block/src/types";
+import { PropItem, SlotItem } from "../../.vitepress/components/api-block/src/types";
 
 export const commonPickerProps: PropItem[] = [
   { name: "v-model", remark: "绑定值",
@@ -83,4 +83,37 @@ export const rangePickerProps: PropItem[] = [
     remarkEn: "Locale", type: ["LangsType"], optional: ["en", "zh-cn"], default: "zh-cn" },
   { name: "value-format", remark: "值的格式",
     remarkEn: "Value format", type: ["String"], default: "YYYY-MM-DD" },
+  { name: "show-time", remark: "是否显示时间选择",
+    remarkEn: "Whether to show time selection", type: ["Boolean"], default: "false" },
+  {
+    name: "default-time",
+    remark: "show-time 时的默认起止时间",
+    remarkEn: "Default start/end time when show-time is enabled",
+    type: ["[string, string]"],
+    default: "['00:00:00', '23:59:59']",
+  },
+  {
+    name: "range-shortcuts",
+    remark: "快捷选项。true 使用内置预设，false 关闭，传入数组可自定义",
+    remarkEn: "Range shortcuts. true for built-in presets, false to hide, or pass an array to customize",
+    type: ["RangeShortcut[]", "boolean"],
+    default: "true",
+  },
+  {
+    name: "shortcuts-position",
+    remark: "快捷选项面板位置",
+    remarkEn: "Side of the shortcuts panel",
+    type: ["RangeShortcutsPosition"],
+    optional: ["left", "right"],
+    default: "left",
+  },
+];
+
+export const pickerSlots: SlotItem[] = [
+  {
+    name: "trigger",
+    remark: "自定义触发元素，未传入时使用默认输入框",
+    remarkEn: "Custom trigger element; falls back to the default input when omitted",
+    params: "{ value, visible }",
+  },
 ];

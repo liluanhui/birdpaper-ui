@@ -8,7 +8,8 @@
     position="bottom-left"
     update-at-scroll
   >
-    <div :class="cls">
+    <slot v-if="$slots.trigger" name="trigger" :value="model" :visible="showPopup" />
+    <div v-else :class="cls">
       <div :class="`${clsBlockName}-input`">
         <input
           v-model="inputBegin"
@@ -44,6 +45,7 @@ import pickerPanel from "./components/picker-panel.vue";
 import { ref, provide, computed, watch, reactive, toRefs } from "vue";
 import { rangeInjectionKey, type RangePickerContext } from "./types";
 import { RangePickerProps, rangePickerProps } from "./props";
+import { IconCalendarLine } from "birdpaper-icon";
 import dayjs from "dayjs";
 
 defineOptions({ name: "DateRangePicker" });
@@ -79,13 +81,25 @@ const cls = computed<string[] | {}[]>(() => [
   props.disabled ? `${clsBlockName.value}-disabled` : "",
 ]);
 
+/** When showTime is on and format has no time tokens, append HH:mm:ss. */
+const effectiveFormat = computed(() => {
+  const format = props.valueFormat;
+  if (!props.showTime) return format;
+  if (/H|m|s|A|a/.test(format)) return format;
+  return `${format} HH:mm:ss`;
+});
+
 const showPopup = ref<boolean>(false);
-const { langs, valueFormat, disabledDate } = toRefs(props);
+const { langs, disabledDate, showTime, defaultTime, rangeShortcuts, shortcutsPosition } = toRefs(props);
 const pickerContext = reactive({
   type: "range" as const,
   model,
   langs,
-  valueFormat,
+  valueFormat: effectiveFormat,
+  showTime,
+  defaultTime,
+  rangeShortcuts,
+  shortcutsPosition,
   disableDate: disabledDate,
   onSelect: (v: string[], _payload: any, closePopup = true) => {
     model.value = [v?.[0] || "", v?.[1] || ""];
@@ -98,7 +112,7 @@ const normalizeInput = (value: string) => {
   const trimmed = value.trim();
   if (!trimmed) return "";
   if (!dayjs(trimmed).isValid()) return "";
-  const normalized = dayjs(trimmed).format(props.valueFormat);
+  const normalized = dayjs(trimmed).format(effectiveFormat.value);
   if (props.disabledDate && props.disabledDate(normalized)) return "";
   return normalized;
 };

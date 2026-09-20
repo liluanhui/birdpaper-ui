@@ -22,6 +22,7 @@ app.use(BirdpaperUI, {
   size: "default", // 全局尺寸
   zIndex: 3000, // 层级基准值
   emptyText: "暂无数据", // 空状态文案
+  fontFamily: undefined, // 可选，覆盖 --bp-font-family
 });
 ```
 
@@ -50,6 +51,7 @@ const optionData = [
   { prop: 'size', type: 'ComponentSize', default: '"default"', desc: '全局默认尺寸，影响 Input、Select、Button 等表单类组件。可选值：mini / small / default / large' },
   { prop: 'zIndex', type: 'number', default: '3000', desc: '弹出层组件（Modal、Drawer、Tooltip、Message）的 z-index 基准值' },
   { prop: 'emptyText', type: 'string', default: '"暂无数据"', desc: 'Table、Select 等组件的空状态默认文案' },
+  { prop: 'fontFamily', type: 'string', default: '—', desc: '全局字体，写入 :root 的 --bp-font-family；未设置时使用主题内置系统字体栈' },
 ]
 
 const sizeData = [
@@ -161,6 +163,28 @@ app.use(BirdpaperUI, { zIndex: 3000 });
   </template>
 </bp-table>
 
+## 字体
+
+组件统一使用 CSS 变量 `--bp-font-family`（默认系统字体栈），不会继承业务页或文档站字体。可通过配置项或变量覆盖：
+
+```ts
+app.use(BirdpaperUI, {
+  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+});
+```
+
+```vue
+<bp-config-provider font-family='"Helvetica Neue", Arial, sans-serif'>
+  <App />
+</bp-config-provider>
+```
+
+```css
+:root {
+  --bp-font-family: "Helvetica Neue", Arial, sans-serif;
+}
+```
+
 ## 在组件中消费全局配置
 
 组件开发者可通过 `useGlobalConfig` 获取全局配置：
@@ -169,7 +193,7 @@ app.use(BirdpaperUI, { zIndex: 3000 });
 <script setup>
 import { useGlobalConfig } from "@birdpaper-ui/hooks";
 
-const { size, locale, zIndex, emptyText } = useGlobalConfig();
+const { size, locale, zIndex, emptyText, fontFamily } = useGlobalConfig();
 
 // 组件 prop 优先，回退到全局值
 const finalSize = computed(() => props.size || size.value);
@@ -188,6 +212,7 @@ const config: ConfigProviderContext = {
   size: "default",
   zIndex: 3000,
   emptyText: "暂无数据",
+  fontFamily: '"Helvetica Neue", Arial, sans-serif',
 };
 ```
 

@@ -385,6 +385,7 @@ watch(
 
 const cls = computed(() => [
   clsBlockName.value,
+  `${clsBlockName.value}-${props.size}`,
   props.border && `${clsBlockName.value}-border`,
   props.stripe && `${clsBlockName.value}-stripe`,
 ]);

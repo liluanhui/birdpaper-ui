@@ -19,3 +19,6 @@ export interface TableScroll {
   y?: number | string; // 纵向滚动高度
   scrollToFirstRowOnChange?: boolean; // 分页、排序、筛选变化后是否滚动到表格顶部
 }
+
+/** Table density size. */
+export type TableSize = "mini" | "normal" | "large";

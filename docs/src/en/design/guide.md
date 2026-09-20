@@ -9,12 +9,28 @@ This guide defines Birdpaper UI’s style tokens—typography, size, radius, sha
 ### Font Family
 
 ```css
-font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
-  Hiragino Sans GB, Noto Sans, Microsoft YaHei,
-  Helvetica Neue, Helvetica, Arial, sans-serif;
+font-family: var(--bp-font-family);
+/* Default: */
+/* Inter, -apple-system, BlinkMacSystemFont, "PingFang SC",
+   "Hiragino Sans GB", "Noto Sans", "Microsoft YaHei",
+   "Helvetica Neue", Helvetica, Arial, sans-serif; */
 ```
 
-Prefer the system font stack for the best rendering and load performance on each platform. Latin text prefers Inter; Chinese falls back to native platform fonts (PingFang SC / Noto Sans / Microsoft YaHei).
+Prefer the system font stack for the best rendering and load performance on each platform. Latin text prefers Inter; Chinese falls back to native platform fonts (PingFang SC / Noto Sans / Microsoft YaHei). Component roots always use `--bp-font-family`, so they do not inherit fonts from the host app or docs site.
+
+Override the CSS variable or set `fontFamily` on [ConfigProvider](/components/config/):
+
+```css
+:root {
+  --bp-font-family: "Helvetica Neue", Arial, sans-serif;
+}
+```
+
+```ts
+app.use(BirdpaperUI, {
+  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+});
+```
 
 ### Font Size
 

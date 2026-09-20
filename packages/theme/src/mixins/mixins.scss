@@ -1,5 +1,6 @@
 @use "../common/design" as *;
 @use "../common/animation.scss" as *;
+@use "../common/font";
 
 $B: null;
 @mixin b($block) {
@@ -28,4 +29,12 @@ $B: null;
   justify-content: $justify;
   align-items: $align;
   @content;
+}
+
+/** Frosted-glass overlay with a light dim for contrast. Follows `.dark` via gray-0. */
+@mixin overlay-mask {
+  background-color: rgba(var(--bp-gray-0-rgb), 0.36);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18));
+  -webkit-backdrop-filter: blur(3px) saturate(140%);
+  backdrop-filter: blur(3px) saturate(140%);
 }

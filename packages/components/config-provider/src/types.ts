@@ -17,6 +17,11 @@ export interface ConfigProviderProps {
   zIndex: number;
   /** Default empty-state text for Table, Select, Empty, etc. Overrides the locale pack. */
   emptyText: string;
+  /**
+   * Global font-family for all components. Writes to `--bp-font-family` on `:root`.
+   * Omit to use the built-in system font stack from the theme CSS.
+   */
+  fontFamily: string;
 }
 
 export type ConfigProviderContext = Partial<ConfigProviderProps>;

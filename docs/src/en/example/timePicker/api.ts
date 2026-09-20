@@ -1,4 +1,4 @@
-import { EventItem, PropItem } from "../../../.vitepress/components/api-block/src/types";
+import { EventItem, PropItem, SlotItem } from "../../../.vitepress/components/api-block/src/types";
 
 export const timePickerProps: PropItem[] = [
   { name: "v-model", remark: "Bound value", type: ["String"], default: "" },
@@ -20,4 +20,12 @@ export const timePickerProps: PropItem[] = [
 export const timePickerEvents: EventItem[] = [
   { name: "input", remark: "Triggered on input" },
   { name: "blur", remark: "Triggered on blur" },
+];
+
+export const timePickerSlots: SlotItem[] = [
+  {
+    name: "trigger",
+    remark: "Custom trigger element; falls back to the default input when omitted",
+    params: "{ value, visible }",
+  },
 ];

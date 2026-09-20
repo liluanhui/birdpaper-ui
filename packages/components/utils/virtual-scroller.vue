@@ -79,18 +79,22 @@ onActivated(() => {
 function scrollToItem(itemOrValue: any, smooth = false) {
   const key = props.keyField;
   const idx =
-    typeof itemOrValue === "object"
+    typeof itemOrValue === "object" && itemOrValue !== null
       ? props.items.indexOf(itemOrValue)
-      : props.items.findIndex((it) => it[key] === itemOrValue);
+      : props.items.findIndex((it) =>
+          typeof it === "object" && it !== null ? it[key] === itemOrValue : it === itemOrValue
+        );
 
   if (idx < 0 || !containerRef.value) return;
 
+  updateContainerHeight();
   const targetTop = idx * props.itemSize;
   const centerOffset = Math.max(0, (containerHeight.value - props.itemSize) / 2);
   containerRef.value.scrollTo({
-    top: targetTop - centerOffset,
+    top: Math.max(0, targetTop - centerOffset),
     behavior: (smooth ? "smooth" : "auto") as ScrollBehavior,
   });
+  scrollTop.value = Math.max(0, targetTop - centerOffset);
 }
 </script>
 

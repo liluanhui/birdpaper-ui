@@ -22,6 +22,7 @@ app.use(BirdpaperUI, {
   size: "default", // Global size
   zIndex: 3000, // Overlay base z-index
   emptyText: "No data", // Empty-state copy
+  fontFamily: undefined, // Optional override for --bp-font-family
 });
 ```
 
@@ -50,6 +51,7 @@ const optionData = [
   { prop: 'size', type: 'ComponentSize', default: '"default"', desc: 'Default size for form controls such as Input, Select, and Button. Values: mini / small / default / large' },
   { prop: 'zIndex', type: 'number', default: '3000', desc: 'Base z-index for overlays (Modal, Drawer, Tooltip, Message)' },
   { prop: 'emptyText', type: 'string', default: '"No data"', desc: 'Default empty-state text for Table, Select, and similar components' },
+  { prop: 'fontFamily', type: 'string', default: '—', desc: 'Global font-family; writes --bp-font-family on :root. Omit to use the built-in system font stack' },
 ]
 
 const sizeData = [
@@ -161,6 +163,28 @@ Offsets from the base:
   </template>
 </bp-table>
 
+## Font Family
+
+Components use the CSS variable `--bp-font-family` (built-in system font stack) and do not inherit fonts from the host app or docs site. Override via config or CSS:
+
+```ts
+app.use(BirdpaperUI, {
+  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+});
+```
+
+```vue
+<bp-config-provider font-family='"Helvetica Neue", Arial, sans-serif'>
+  <App />
+</bp-config-provider>
+```
+
+```css
+:root {
+  --bp-font-family: "Helvetica Neue", Arial, sans-serif;
+}
+```
+
 ## Consuming Global Config in Components
 
 Component authors can read global config with `useGlobalConfig`:
@@ -169,7 +193,7 @@ Component authors can read global config with `useGlobalConfig`:
 <script setup>
 import { useGlobalConfig } from "@birdpaper-ui/hooks";
 
-const { size, locale, zIndex, emptyText } = useGlobalConfig();
+const { size, locale, zIndex, emptyText, fontFamily } = useGlobalConfig();
 
 // Prefer component prop, fall back to global
 const finalSize = computed(() => props.size || size.value);
@@ -188,6 +212,7 @@ const config: ConfigProviderContext = {
   size: "default",
   zIndex: 3000,
   emptyText: "No data",
+  fontFamily: '"Helvetica Neue", Arial, sans-serif',
 };
 ```
 

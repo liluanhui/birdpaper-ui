@@ -24,7 +24,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(29, 33, 41, 0.6);
+    @include overlay-mask;
   }
 
   &-container {

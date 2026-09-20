@@ -1,0 +1,18 @@
+@use "./design" as *;
+
+// System font stack — Inter for Latin, platform CJK fallbacks. Cross-browser safe;
+// not dependent on the host page (e.g. docs site) font.
+$font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans",
+  "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+:root {
+  --bp-font-family: #{$font-family};
+}
+
+// Lock component typography to the design-system stack so host-page fonts
+// (docs Quicksand, app custom fonts, etc.) do not leak into Birdpaper UI.
+// Loaded via base + mixins so full and on-demand CSS both include it.
+[class^="#{$namespace}-"],
+[class*=" #{$namespace}-"] {
+  font-family: var(--bp-font-family);
+}

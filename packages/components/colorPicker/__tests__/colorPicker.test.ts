@@ -22,4 +22,15 @@ describe("ColorPicker", () => {
     const wrapper = mount(ColorPicker, { props: { size: "large" } });
     expect(wrapper.props("size")).toBe("large");
   });
+
+  it("shape", () => {
+    const wrapper = mount(ColorPicker, { props: { shape: "circle" } });
+    expect(wrapper.props("shape")).toBe("circle");
+  });
+
+  it("showValue", () => {
+    const wrapper = mount(ColorPicker, { props: { showValue: true, modelValue: "#165dff" } });
+    expect(wrapper.props("showValue")).toBe(true);
+    expect(wrapper.find(".bp-color-picker-input-value").text()).toBe("#165dff");
+  });
 });

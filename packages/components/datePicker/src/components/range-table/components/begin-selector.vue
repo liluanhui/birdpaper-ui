@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import tableHeader from "../../table-header.vue";
-import { ref, type PropType } from "vue";
+import { ref, type PropType, watch } from "vue";
 import { useDayJs } from "../../../core";
 import { DayCell, LangsType } from "../../../types";
 import dayjs from "dayjs";
@@ -50,25 +50,39 @@ const emits = defineEmits<{
 
 const isInRange = (start: string, end: string, value: string) => start <= value && value <= end;
 
-const { setDates, dates, weeks, currentYear, currentMonth, months, changeMonth, changeYear } = useDayJs(
+const { toDay, setDates, dates, weeks, currentYear, currentMonth, months, changeMonth, changeYear } = useDayJs(
   props.langs,
   beginModel.value
 );
 
 setDates(beginModel.value ? dayjs(beginModel.value) : undefined);
 
+watch(beginModel, (val) => {
+  if (!val || !dayjs(val).isValid()) return;
+  setDates(dayjs(val));
+});
+
 const cellCls = (cell: DayCell) => {
   const rangeDate = endModel.value || hoverDate.value?.value;
+  const hasMultiDayRange = !!(beginModel.value && rangeDate && beginModel.value !== rangeDate);
   const isRange =
-    cell.type === "normal" && beginModel.value && rangeDate && isInRange(beginModel.value, rangeDate, cell.value);
-  const isRangeStart = beginModel.value === cell.value && rangeDate && cell.type === "normal";
-  const isRangeEnd = rangeDate === cell.value && rangeDate > beginModel.value && cell.type === "normal";
+    cell.type === "normal" &&
+    hasMultiDayRange &&
+    isInRange(beginModel.value, rangeDate!, cell.value);
+  const isRangeStart = beginModel.value === cell.value && hasMultiDayRange && cell.type === "normal";
+  const isRangeEnd = rangeDate === cell.value && hasMultiDayRange && rangeDate! > beginModel.value && cell.type === "normal";
   const isDisabled = props.disabledDate && props.disabledDate(cell.value);
+  // 仅选一天 / 起止同一天：用圆形 active，不用 range-start 半圆
+  const isSingleActive =
+    cell.type === "normal" &&
+    !hasMultiDayRange &&
+    (beginModel.value === cell.value || endModel.value === cell.value);
 
   return [
     `${props.clsBlockName}-body-cell`,
     `day-cell-${cell.type}`,
-    { active: beginModel.value === cell.value && cell.type === "normal" },
+    { active: isSingleActive },
+    { "to-day": toDay.value === cell.value },
     { "range-start": isRangeStart },
     { "range-end": isRangeEnd },
     { range: isRange && !isRangeStart && !isRangeEnd },

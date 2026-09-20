@@ -1,6 +1,6 @@
 import { InputSize } from "@birdpaper-ui/components/input/src/types";
 import { ExtractPropTypes, PropType } from "vue";
-import { LangsType } from "./types";
+import { LangsType, RangeShortcut, RangeShortcutsPosition } from "./types";
 
 export const commonPickerProps = {
   /**
@@ -172,6 +172,42 @@ export const rangePickerProps = {
   valueFormat: {
     type: String,
     default: "YYYY-MM-DD",
+  },
+  /**
+   * @type boolean
+   * @description Show time selectors or not.
+   * @default false
+   */
+  showTime: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * @type [string, string]
+   * @description Default start/end time when `showTime` is enabled.
+   * @default ["00:00:00", "23:59:59"]
+   */
+  defaultTime: {
+    type: Array as unknown as PropType<[string, string]>,
+    default: () => ["00:00:00", "23:59:59"],
+  },
+  /**
+   * @type RangeShortcut[] | boolean
+   * @description Range shortcuts. `true` uses built-in presets; `false` hides the panel; pass an array to customize.
+   * @default true
+   */
+  rangeShortcuts: {
+    type: [Array, Boolean] as PropType<RangeShortcut[] | boolean>,
+    default: true,
+  },
+  /**
+   * @type RangeShortcutsPosition
+   * @description Side of the shortcuts panel.
+   * @default left
+   */
+  shortcutsPosition: {
+    type: String as PropType<RangeShortcutsPosition>,
+    default: "left",
   },
 };
 

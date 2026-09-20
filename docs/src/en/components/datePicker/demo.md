@@ -8,11 +8,21 @@
 
 ## Date Range
 
-Use `date-range-picker` to select a range.
+Use `date-range-picker` to select a range. Enable `show-time` to pick times as well — a date/time summary and confirm footer appear below the calendars. Set `default-time` for the default start/end clock values (default `['00:00:00', '23:59:59']`).
 
 <demo-block src="datePicker/range">
 
 <<< @/en/example/datePicker/range.vue
+
+</demo-block>
+
+## Shortcuts
+
+Shortcuts (Last 7 days / Last 30 days / Last year) appear on the left by default. Customize with `range-shortcuts`, hide with `false`, or move with `shortcuts-position`.
+
+<demo-block src="datePicker/shortcuts">
+
+<<< @/en/example/datePicker/shortcuts.vue
 
 </demo-block>
 
@@ -43,6 +53,16 @@ Hide the trigger with `hide-trigger`.
 <demo-block src="datePicker/panel">
 
 <<< @/en/example/datePicker/panel.vue
+
+</demo-block>
+
+## Custom Trigger
+
+Use the `#trigger` slot to replace the default input (e.g. with a button). Scoped props: `value` (current value) and `visible` (whether the panel is open). Supported by `DatePicker`, `DateRangePicker`, `MonthPicker`, and `YearPicker`.
+
+<demo-block src="datePicker/trigger">
+
+<<< @/en/example/datePicker/trigger.vue
 
 </demo-block>
 

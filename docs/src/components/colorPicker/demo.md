@@ -28,6 +28,26 @@
 
 </demo-block>
 
+## 形状
+
+通过 `shape` 控制触发器形状：`square`（圆角矩形，默认）、`circle`（圆形）。
+
+<demo-block src="colorPicker/shape">
+
+<<< @/example/colorPicker/shape.vue
+
+</demo-block>
+
+## 显示色值
+
+开启 `show-value` 后，在触发器旁展示当前颜色值。
+
+<demo-block src="colorPicker/showValue">
+
+<<< @/example/colorPicker/showValue.vue
+
+</demo-block>
+
 ## 禁用
 
 通过 `disabled` 属性禁用颜色选择器。

@@ -8,7 +8,8 @@
     position="bottom-left"
     update-at-scroll
   >
-    <bp-input ref="inpRef" readonly v-model="model" :name :class="cls" :placeholder :disabled :size>
+    <slot v-if="$slots.trigger" name="trigger" :value="model" :visible="showPopup" />
+    <bp-input v-else ref="inpRef" readonly v-model="model" :name :class="cls" :placeholder :disabled :size>
       <template #suffix>
         <IconCloseLine v-if="clearable && model" class="action-icon" @click.stop="handleClear" />
         <IconCalendarLine v-else />

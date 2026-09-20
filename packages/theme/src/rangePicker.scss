@@ -126,12 +126,72 @@ div[class*="trigger-wrapper"] {
 
   width: 552px;
   display: flex;
+  flex-direction: column;
   border-radius: $date-picker-border-radius;
   background-color: $date-picker-bg;
   border: $borderSize solid $date-picker-border-color;
+  overflow: hidden;
+
+  &.has-shortcuts {
+    width: auto;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  &-main {
+    display: flex;
+    flex-direction: column;
+    width: 552px;
+    flex-shrink: 0;
+  }
+
+  &-shortcuts {
+    @include flex(column, flex-start, stretch);
+    width: 112px;
+    flex-shrink: 0;
+    padding: 8px 0;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border-right: $borderSize solid $date-picker-border-color;
+
+    &-item {
+      @include flex(row, flex-start, center);
+      min-height: 32px;
+      padding: 0 14px;
+      font-size: 13px;
+      color: rgba(getCssVar("ranger-table", "date-text-color"), 1);
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: color 0.15s ease, background-color 0.15s ease;
+
+      &:hover {
+        color: rgba(getCssVar("ranger-table", "date-text-color-hover"), 1);
+        background-color: rgba(getCssVar("ranger-table", "date-bg-color-hover"), 1);
+      }
+
+      &.is-active {
+        color: rgba(getCssVar("ranger-table", "date-text-color-hover"), 1);
+        font-weight: 500;
+      }
+    }
+  }
+
+  &.is-shortcuts-right &-shortcuts {
+    border-right: none;
+    border-left: $borderSize solid $date-picker-border-color;
+  }
+
+  &-calendars {
+    display: flex;
+    width: 100%;
+  }
 
   &-area {
     width: 100%;
+
+    &:first-child {
+      border-right: $borderSize solid $date-picker-border-color;
+    }
   }
 
   &-week {
@@ -211,6 +271,24 @@ div[class*="trigger-wrapper"] {
       }
     }
 
+    .to-day {
+      .#{$namespace}-range-table-body-inner {
+        &::after {
+          content: "";
+          display: block;
+          position: relative;
+          left: 50%;
+          // 范围日期圆为 24px（单日为 32px），用 bottom: 0 对齐单日 bottom: 4px 时的字-点间距
+          bottom: 0;
+          width: 4px;
+          height: 4px;
+          margin-left: -2px;
+          border-radius: 4px;
+          background-color: rgba(getCssVar("ranger-table", "date-bg-color-active"), 1);
+        }
+      }
+    }
+
     .range {
       color: rgba(getCssVar("ranger-table", "date-text-color-range"), 1);
       background-color: rgba(getCssVar("ranger-table", "date-bg-color-range"), 1);
@@ -252,5 +330,104 @@ div[class*="trigger-wrapper"] {
       text-align: center;
       font-size: 14px;
     }
+  }
+
+  &-datetime {
+    display: flex;
+    width: 100%;
+    border-top: $borderSize solid $date-picker-border-color;
+
+    &-cell {
+      @include flex(row, flex-start, center);
+      flex: 1;
+      min-width: 0;
+      gap: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--bp-gray-5);
+      cursor: pointer;
+      border-right: $borderSize solid $date-picker-border-color;
+      box-sizing: border-box;
+      transition: color 0.15s ease, background-color 0.15s ease;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      svg[class*="-icon-"] {
+        flex-shrink: 0;
+        fill: var(--bp-gray-5);
+        transition: fill 0.15s ease;
+      }
+
+      &:hover {
+        background-color: rgba(getCssVar("ranger-table", "date-bg-color-hover"), 1);
+      }
+
+      &.is-active {
+        color: rgba(getCssVar("ranger-table", "date-text-color"), 1);
+        background-color: rgba(getCssVar("ranger-table", "date-bg-color-hover"), 1);
+
+        svg[class*="-icon-"] {
+          fill: rgba(getCssVar("ranger-table", "date-text-color"), 1);
+        }
+      }
+    }
+  }
+
+  &-time-view {
+    @include flex(column, flex-start, stretch);
+    width: 100%;
+    min-height: 292px;
+
+    &-header {
+      @include flex(row, center, center);
+      height: $date-picker-header-height;
+      padding: $date-picker-header-padding;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(getCssVar("ranger-table", "date-text-color"), 1);
+      border-bottom: $borderSize dashed $date-picker-border-color;
+      box-sizing: border-box;
+    }
+
+    .#{$namespace}-time-table {
+      flex: 1;
+      width: 100%;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background-color: transparent;
+
+      &.border-none {
+        border: none;
+      }
+    }
+
+    .#{$namespace}-time-table-body {
+      justify-content: space-around;
+      height: 244px;
+    }
+
+    .#{$namespace}-time-table-time-col {
+      flex: 1;
+      width: auto;
+      max-height: 244px;
+    }
+  }
+
+  &-footer {
+    @include flex(row, flex-end, center);
+    width: 100%;
+    gap: 8px;
+    padding: 10px 14px;
+    border-top: $borderSize solid $date-picker-border-color;
+    box-sizing: border-box;
   }
 }

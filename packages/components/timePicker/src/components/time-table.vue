@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from "@birdpaper-ui/hooks";
 import BpButton from "@birdpaper-ui/components/button/index";
-import { computed, inject, ref, watch } from "vue";
+import { computed, inject, ref, watch, nextTick } from "vue";
 import type { Ref } from "vue";
 import dayjs from "dayjs";
 import { timeInjectionKey, TimePickerContext } from "../types";
@@ -89,12 +89,21 @@ const setDefault = () => {
 };
 
 const setTime = (val: string) => {
-  globalValue.value = val.split(":");
+  const parts = val.split(":").map((part) => String(part ?? "00").padStart(2, "0"));
+  while (parts.length < 3) parts.push("00");
+  globalValue.value = parts.slice(0, 3);
 
-  for (let i = 0; i < globalValue.value.length; i++) {
-    const item = globalValue.value[i];
-    scrollTo(i, item);
-  }
+  const scrollAll = () => {
+    for (let i = 0; i < globalValue.value.length; i++) {
+      scrollTo(i, globalValue.value[i]);
+    }
+  };
+
+  // Wait for VirtualScroller columns to mount/layout before scrolling.
+  nextTick(() => {
+    scrollAll();
+    requestAnimationFrame(scrollAll);
+  });
 };
 
 const setNow = () => {
@@ -129,20 +138,14 @@ const getTime = (defaultNow: boolean = false) => {
 
 watch(
   () => ctx.value?.modelValue,
-  () => {
-    if (!ctx.value?.modelValue) return;
-
-    globalValue.value = ["", "", ""];
-
-    const arr = ctx.value?.modelValue.split(":");
-    for (let i = 0; i < arr.length; i++) {
-      const element = arr[i];
-      globalValue.value[i] = Number(element).toString().padStart(2, "0");
+  (val) => {
+    if (!val) {
+      globalValue.value = ["", "", ""];
+      return;
     }
+    setTime(val);
   },
-  {
-    immediate: true,
-  }
+  { immediate: true }
 );
 
 defineExpose({

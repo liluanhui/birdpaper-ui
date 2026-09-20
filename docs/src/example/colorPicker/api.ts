@@ -21,6 +21,21 @@ export const colorPickerProps: PropItem[] = [
     optional: ["mini", "small", "default", "large"],
     default: "default",
   },
+  {
+    name: "shape",
+    remark: "触发器形状",
+    remarkEn: "Trigger shape",
+    type: ["ColorPickerShape"],
+    optional: ["square", "circle"],
+    default: "square",
+  },
+  {
+    name: "show-value",
+    remark: "是否在触发器旁显示颜色值",
+    remarkEn: "Whether to show the color value beside the trigger",
+    type: ["Boolean"],
+    default: false,
+  },
   { name: "disabled", remark: "是否禁用",
     remarkEn: "Whether disabled", type: ["Boolean"], default: false },
 ];

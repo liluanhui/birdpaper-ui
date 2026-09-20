@@ -9,7 +9,9 @@
     position="bottom-left"
     update-at-scroll
   >
+    <slot v-if="$slots.trigger" name="trigger" :value="model" :visible="showPopup" />
     <bp-input
+      v-else
       ref="inpRef"
       readonly
       v-model="model"
@@ -29,7 +31,7 @@
     <template #content>
       <div :class="`${clsBlockName}-panel select-none`">
         <div :class="`${clsBlockName}-panel-wrapper`">
-          <time-table />
+          <time-table ref="tableRef" />
         </div>
       </div>
     </template>
@@ -42,7 +44,7 @@ import BpInput from "@birdpaper-ui/components/input/index";
 import BpTrigger from "@birdpaper-ui/components/trigger/index";
 import { IconTimeLine, IconCloseLine } from "birdpaper-icon";
 import { timePickerProps, TimePickerProps } from "./props";
-import { computed, provide, reactive, ref } from "vue";
+import { computed, nextTick, provide, reactive, ref, watch } from "vue";
 import timeTable from "./components/time-table.vue";
 import { timeInjectionKey } from "./types";
 
@@ -56,6 +58,8 @@ const emits = defineEmits(["input", "blur"]);
 const cls = computed<string[] | {}[]>(() => [clsBlockName.value, `${clsBlockName.value}-${props.size}`]);
 
 const showPopup = ref<boolean>(false);
+const tableRef = ref<InstanceType<typeof timeTable>>();
+
 provide(
   timeInjectionKey,
   reactive({
@@ -66,6 +70,15 @@ provide(
     },
   })
 );
+
+/** Popup uses display:none while closed — re-scroll after it becomes visible. */
+watch(showPopup, async (visible) => {
+  if (!visible || !model.value) return;
+  await nextTick();
+  requestAnimationFrame(() => {
+    tableRef.value?.setTime?.(model.value);
+  });
+});
 
 const handleClear = () => {
   model.value = "";
