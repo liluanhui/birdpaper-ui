@@ -121,10 +121,31 @@
 
 .#{$B}-group-button {
   @include css-var-from-global-rgb(("radio", "radio-button-bg"), ("gray", "2"));
+  position: relative;
   background-color: rgba(var(--bp-gray-2-rgb), 0.68);
 
+  .#{$B}-group-button-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--bp-gray-0);
+    box-sizing: border-box;
+    opacity: 0;
+
+    &.is-ready {
+      opacity: 1;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
   .#{$B} {
-    &:not(:first-child) {
+    position: relative;
+    z-index: 1;
+
+    & + .#{$B} {
       margin-left: 2px;
     }
 
@@ -132,7 +153,6 @@
       .#{$B}-label {
         background-color: var(--bp-gray-0);
         color: rgba(getCssVar("radio", "label-color-hover"), 1);
-        transition: all 0.2s;
       }
     }
 
@@ -144,17 +164,19 @@
       @include flex(row, center, center);
       margin-left: 0px;
       color: rgba(getCssVar("radio", "label-color"), 1);
+      background-color: transparent;
+      transition: color 0.2s ease, background-color 0.2s ease;
 
       svg[class*="-icon-"] {
         fill: rgba(getCssVar("radio", "radio-color"), 1);
+        transition: fill 0.2s ease;
       }
     }
 
     &-check {
       .#{$B}-label {
-        background-color: var(--bp-gray-0);
+        background-color: transparent;
         color: rgba(getCssVar("radio", "radio-border-check"), 1);
-        transition: all 0.2s;
 
         svg[class*="-icon-"] {
           fill: rgba(getCssVar("radio", "radio-border-check"), 1);
@@ -177,6 +199,10 @@
       line-height: calc(getCssVar("size-height", $size) - calc(getCssVar("size-padding", $size) / 2));
       border-radius: calc(getCssVar("size-border-radius", $size) / 1.6);
       font-size: getCssVar("size-font-size", $size);
+    }
+
+    .#{$B}-group-button-slider {
+      border-radius: calc(getCssVar("size-border-radius", $size) / 1.6);
     }
   }
 }

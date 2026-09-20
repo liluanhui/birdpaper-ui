@@ -30,6 +30,7 @@
         height: 1px;
         background-color: var(--bp-gray-2);
         content: "";
+        transition: background-color 0.25s ease;
       }
     }
 
@@ -69,6 +70,7 @@
           height: 100%;
           background-color: var(--bp-gray-2);
           content: "";
+          transition: background-color 0.25s ease;
         }
       }
     }
