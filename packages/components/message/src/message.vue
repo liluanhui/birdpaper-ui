@@ -1,5 +1,5 @@
 <template>
-  <li :class="[clsName, 'select-none']">
+  <li ref="rootRef" :class="[clsName, 'select-none']" :data-message-id="id">
     <span v-if="type !== 'text'" :class="[`${clsBlockName}-icon`, `icon-${type}`]">
       <component :is="iconType[type]" size="18px"></component>
     </span>
@@ -29,7 +29,11 @@ const { clsBlockName } = useNamespace("message");
 const props: MessageProps = defineProps(messageProps);
 const emits = defineEmits<{
   remove: [id?: string];
+  sizeChange: [id: string, height: number];
 }>();
+
+const rootRef = ref<HTMLElement>();
+let resizeObserver: ResizeObserver | null = null;
 
 const iconType = {
   success: IconCheckboxCircleFill,
@@ -52,6 +56,11 @@ const clsName = computed(() => {
 
 const isCloseable = computed(() => !!(props.closeable || props.closable));
 
+const emitSize = () => {
+  if (!props.id || !rootRef.value) return;
+  emits("sizeChange", props.id, rootRef.value.offsetHeight);
+};
+
 const timer = ref(0);
 const init = () => {
   clearTimer();
@@ -73,16 +82,28 @@ const handleClose = () => {
 };
 
 onMounted(() => {
-  nextTick(() => init());
+  nextTick(() => {
+    init();
+    emitSize();
+    if (typeof ResizeObserver !== "undefined" && rootRef.value) {
+      resizeObserver = new ResizeObserver(() => emitSize());
+      resizeObserver.observe(rootRef.value);
+    }
+  });
 });
 
 onUnmounted(() => {
   clearTimer();
+  resizeObserver?.disconnect();
+  resizeObserver = null;
 });
 
 watch(
   () => props.content,
-  () => init()
+  () => {
+    init();
+    nextTick(emitSize);
+  }
 );
 
 watch(
