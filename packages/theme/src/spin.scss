@@ -31,9 +31,7 @@
     bottom: 0;
     left: 0;
     z-index: 11;
-    background-color: rgba(var(--bp-gray-0-rgb), 0.6);
-    backdrop-filter: blur(1px) saturate(120%);
-    -webkit-backdrop-filter: blur(1px) saturate(120%);
+    @include overlay-mask;
 
     .#{$B}-spinner {
       position: absolute;
