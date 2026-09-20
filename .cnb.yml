@@ -53,7 +53,7 @@ $:
                 - npm install -g pnpm
                 - pnpm config set store-dir /lib/pnpm
                 - pnpm --version
-                - pnpm install --no-frozen-lockfile --verbose
+                - pnpm install --no-frozen-lockfile
                 - pnpm run docs:build
         - name: 上传指定文件夹到COS
           image: tencentcom/coscli
