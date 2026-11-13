@@ -264,6 +264,14 @@
       <div class="footer-bottom">
         <span>Released under the MIT License.</span>
         <span>Copyright © 2024-present Birdpaper Team</span>
+        <a
+          class="footer-beian"
+          href="https://beian.miit.gov.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          粤ICP备17015354号
+        </a>
       </div>
     </footer>
   </div>

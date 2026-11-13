@@ -26,6 +26,11 @@ const config: import("vitepress").UserConfig = {
         link: "https://github.com/liluanhui/birdpaper-ui",
       },
     ],
+    footer: {
+      message: "Released under the MIT License.",
+      copyright:
+        'Copyright © 2024-present Birdpaper Team · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备17015354号</a>',
+    },
     search: {
       provider: "local",
       options: {

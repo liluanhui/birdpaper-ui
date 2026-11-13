@@ -36,3 +36,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* VitePress hides the footer when the sidebar is open; keep ICP visible on doc pages. */
+.VPFooter.has-sidebar {
+  display: block;
+}
